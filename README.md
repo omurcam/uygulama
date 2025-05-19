@@ -1,53 +1,106 @@
-> Edited for use in IDX on 07/09/12
+# Anadolu Wellness
 
-# Welcome to your Expo app 👋
+A mobile application focused on traditional Turkish herbal remedies and healthy living tips tailored for Turkish diaspora in Europe and America.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## About
 
-## Get started
+Anadolu Wellness brings centuries of traditional Turkish herbal knowledge to the modern world. The app provides detailed information on traditional Turkish herbs and natural mixtures, personalized health tracking, multimedia content, and a community forum where users can share their experiences and recipes.
 
-#### Android
+## Features
 
-Android previews are defined as a `workspace.onStart` hook and started as a vscode task when the workspace is opened/started.
+### 1. Herbal Library
+- A categorized list of 150+ traditional Turkish herbs and natural mixtures
+- Each herb includes detailed description, health benefits, preparation instructions, and usage tips
+- Search and filter functionality by herb name, benefit, or preparation method
 
-Note, if you can't find the task, either:
-- Rebuild the environment (using command palette: `IDX: Rebuild Environment`), or
-- Run `npm run android -- --tunnel` command manually run android and see the output in your terminal. The device should pick up this new command and switch to start displaying the output from it.
+### 2. Personalized Health Tracker
+- User profile with basic health information and preferences
+- Daily herbal intake reminders with push notifications
+- Personalized recommendations based on user profile
 
-In the output of this command/task, you'll find options to open the app in a
+### 3. Multimedia Content
+- Embedded video tutorials and audio guides on herbal preparation and wellness practices
+- Easy content updates for admin without coding
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### 4. Community Forum
+- Share questions, recipes, and experiences with the community
+- Like and comment functionality
+- User profiles and community engagement
 
-You'll also find options to open the app's developer menu, reload the app, and more.
+### 5. Freemium Monetization
+- Free access to basic herbal library and community
+- Premium subscription unlocks full herb database, personalized plans, videos, and ad-free experience
+- Integrated payment processing for subscriptions
 
-#### Web
+## Technology Stack
 
-Web previews will be started and managred automatically. Use the toolbar to manually refresh.
+- React Native / Expo
+- Firebase (Authentication, Firestore, Storage)
+- Stripe for payment processing
+- Expo AV for multimedia playback
+- Expo Notifications for reminders
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Getting Started
 
-## Get a fresh project
+### Prerequisites
 
-When you're ready, run:
+- Node.js (v14 or later)
+- npm or yarn
+- Expo CLI
 
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run reset-project
+git clone https://github.com/yourusername/anadolu-wellness.git
+cd anadolu-wellness
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-## Learn more
+3. Start the development server:
+```bash
+npm start
+# or
+yarn start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+4. Follow the Expo CLI instructions to run the app on your device or emulator
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Project Structure
 
-## Join the community
+```
+anadolu-wellness/
+├── app/              # Main application screens
+│   ├── (tabs)/       # Tab-based navigation screens
+│   └── herb/         # Herb detail screens
+├── assets/           # Images, fonts, and other static assets
+├── components/       # Reusable UI components
+├── constants/        # App constants and theme configuration
+├── hooks/            # Custom React hooks
+├── services/         # API services and business logic
+└── utils/            # Utility functions
+```
 
-Join our community of developers creating universal apps.
+## Contributing
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Traditional Turkish herbal remedies research
+- Expo team for the amazing development tools
+- React Native community

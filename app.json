@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "uygulama",
-    "slug": "uygulama",
+    "name": "Anadolu Wellness",
+    "slug": "anadolu-wellness",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "uygulama",
+    "scheme": "anadoluwellness",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
