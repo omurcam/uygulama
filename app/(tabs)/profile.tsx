@@ -77,13 +77,13 @@ export default function ProfileScreen() {
             <ThemedText type="title">{profile.name}</ThemedText>
             <ThemedText>{profile.email}</ThemedText>
             <View style={styles.locationRow}>
-              <IconSymbol name="location.fill" size={14} color="#8BC34A" />
+              <IconSymbol name="location.fill" size={14} color="#4CD964" />
               <ThemedText style={styles.locationText}>{profile.location}</ThemedText>
             </View>
           </View>
           
           <TouchableOpacity style={styles.editButton}>
-            <IconSymbol name="pencil" size={20} color="#8BC34A" />
+            <IconSymbol name="pencil" size={20} color="#4CD964" />
           </TouchableOpacity>
         </ThemedView>
         
@@ -108,19 +108,19 @@ export default function ProfileScreen() {
             <View style={styles.premiumFeatures}>
               <ThemedText type="defaultSemiBold">Premium Özellikler</ThemedText>
               <View style={styles.featureRow}>
-                <IconSymbol name="checkmark.circle.fill" size={20} color="#8BC34A" />
+                <IconSymbol name="checkmark.circle.fill" size={20} color="#4CD964" />
                 <ThemedText style={styles.featureText}>Tüm şifalı bitki veritabanı (150+ bitki)</ThemedText>
               </View>
               <View style={styles.featureRow}>
-                <IconSymbol name="checkmark.circle.fill" size={20} color="#8BC34A" />
+                <IconSymbol name="checkmark.circle.fill" size={20} color="#4CD964" />
                 <ThemedText style={styles.featureText}>Kişiselleştirilmiş sağlık planları</ThemedText>
               </View>
               <View style={styles.featureRow}>
-                <IconSymbol name="checkmark.circle.fill" size={20} color="#8BC34A" />
+                <IconSymbol name="checkmark.circle.fill" size={20} color="#4CD964" />
                 <ThemedText style={styles.featureText}>Reklamsız deneyim</ThemedText>
               </View>
               <View style={styles.featureRow}>
-                <IconSymbol name="checkmark.circle.fill" size={20} color="#8BC34A" />
+                <IconSymbol name="checkmark.circle.fill" size={20} color="#4CD964" />
                 <ThemedText style={styles.featureText}>Video eğitimleri ve rehberler</ThemedText>
               </View>
             </View>
@@ -140,7 +140,7 @@ export default function ProfileScreen() {
                 </View>
               ))}
               <TouchableOpacity style={styles.addTag}>
-                <IconSymbol name="plus" size={14} color="#8BC34A" />
+                <IconSymbol name="plus" size={14} color="#4CD964" />
               </TouchableOpacity>
             </View>
           </View>
@@ -154,7 +154,7 @@ export default function ProfileScreen() {
                 </View>
               ))}
               <TouchableOpacity style={styles.addTag}>
-                <IconSymbol name="plus" size={14} color="#8BC34A" />
+                <IconSymbol name="plus" size={14} color="#4CD964" />
               </TouchableOpacity>
             </View>
           </View>
@@ -172,7 +172,7 @@ export default function ProfileScreen() {
             <Switch
               value={profile.preferences.notifications}
               onValueChange={toggleNotifications}
-              trackColor={{ false: '#767577', true: '#8BC34A' }}
+              trackColor={{ false: '#767577', true: '#4CD964' }}
               thumbColor={profile.preferences.notifications ? '#fff' : '#f4f3f4'}
             />
           </View>
@@ -182,17 +182,17 @@ export default function ProfileScreen() {
               <ThemedText type="defaultSemiBold">Dil</ThemedText>
               <ThemedText>{profile.preferences.language}</ThemedText>
             </View>
-            <IconSymbol name="chevron.right" size={20} color="#8BC34A" />
+            <IconSymbol name="chevron.right" size={20} color="#4CD964" />
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.settingButton}>
             <ThemedText type="defaultSemiBold">Gizlilik Politikası</ThemedText>
-            <IconSymbol name="chevron.right" size={20} color="#8BC34A" />
+            <IconSymbol name="chevron.right" size={20} color="#4CD964" />
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.settingButton}>
             <ThemedText type="defaultSemiBold">Kullanım Şartları</ThemedText>
-            <IconSymbol name="chevron.right" size={20} color="#8BC34A" />
+            <IconSymbol name="chevron.right" size={20} color="#4CD964" />
           </TouchableOpacity>
         </ThemedView>
         
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 35,
-    backgroundColor: '#8BC34A',
+    backgroundColor: '#4CD964',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 16,
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(139, 195, 74, 0.1)',
+    backgroundColor: 'rgba(76, 217, 100, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -271,10 +271,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   planTitle: {
-    color: '#8BC34A',
+    color: '#4CD964',
   },
   upgradeButton: {
-    backgroundColor: '#8BC34A',
+    backgroundColor: '#FF6B35',
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 20,
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   premiumFeatures: {
-    backgroundColor: 'rgba(139, 195, 74, 0.05)',
+    backgroundColor: 'rgba(76, 217, 100, 0.05)',
     padding: 16,
     borderRadius: 12,
     marginTop: 8,
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   tag: {
-    backgroundColor: 'rgba(139, 195, 74, 0.1)',
+    backgroundColor: 'rgba(76, 217, 100, 0.1)',
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 16,
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#8BC34A',
+    borderColor: '#4CD964',
     borderStyle: 'dashed',
     justifyContent: 'center',
     alignItems: 'center',

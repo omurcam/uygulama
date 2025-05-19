@@ -30,9 +30,15 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   // Kullanıcı oturum durumunu kontrol et
   useEffect(() => {
     const checkAuthStatus = async () => {
-      const isLoggedIn = isUserLoggedIn();
-      setAuthenticated(isLoggedIn);
-      setIsLoading(false);
+      try {
+        const isLoggedIn = await isUserLoggedIn();
+        setAuthenticated(isLoggedIn);
+      } catch (error) {
+        console.error('Auth status check failed:', error);
+        setAuthenticated(false);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     checkAuthStatus();

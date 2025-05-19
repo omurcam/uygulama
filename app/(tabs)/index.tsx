@@ -1,178 +1,293 @@
-import { Image } from 'expo-image';
-import { Link } from 'expo-router';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-
-import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+import { Colors } from '@/constants/Colors';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { Dimensions, FlatList, ScrollView, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+
+const { width } = Dimensions.get('window');
+
+// Ana bitki kategorileri, daha sadeleştirilmiş
+const HERB_CATEGORIES = [
+  {
+    id: '1',
+    name: 'Rahatlatıcılar',
+    icon: <MaterialCommunityIcons name="flower" size={28} color={Colors.light.primary} />,
+  },
+  {
+    id: '2',
+    name: 'Sindirim',
+    icon: <MaterialCommunityIcons name="stomach" size={28} color={Colors.light.primary} />,
+  },
+  {
+    id: '3',
+    name: 'Bağışıklık',
+    icon: <MaterialCommunityIcons name="shield" size={28} color={Colors.light.primary} />,
+  },
+  {
+    id: '4',
+    name: 'Solunum',
+    icon: <MaterialCommunityIcons name="lungs" size={28} color={Colors.light.primary} />,
+  },
+  {
+    id: '5',
+    name: 'Enerji',
+    icon: <MaterialCommunityIcons name="flash" size={28} color={Colors.light.primary} />,
+  },
+];
+
+// Popüler bitkiler
+const POPULAR_HERBS = [
+  {
+    id: '1',
+    name: 'Ihlamur',
+    icon: <MaterialCommunityIcons name="flower-tulip" size={24} color={Colors.light.primary} />,
+  },
+  {
+    id: '2',
+    name: 'Adaçayı',
+    icon: <MaterialCommunityIcons name="leaf" size={24} color={Colors.light.primary} />,
+  },
+  {
+    id: '3',
+    name: 'Papatya',
+    icon: <MaterialCommunityIcons name="flower" size={24} color={Colors.light.primary} />,
+  },
+  {
+    id: '4',
+    name: 'Zencefil',
+    icon: <MaterialCommunityIcons name="food-apple" size={24} color={Colors.light.primary} />,
+  },
+];
 
 export default function HomeScreen() {
-  // Example featured herbs for the home screen
-  const featuredHerbs = [
-    { id: 1, name: 'Ihlamur (Linden)', benefit: 'Soothes colds and coughs' },
-    { id: 2, name: 'Adaçayı (Sage)', benefit: 'Supports throat health' },
-    { id: 3, name: 'Zencefil (Ginger)', benefit: 'Aids digestion and immunity' },
-  ];
+  const router = useRouter();
+  const [search, setSearch] = React.useState('');
 
-  // Example wellness tips
-  const wellnessTips = [
-    { id: 1, title: 'Daily Herb Tea Ritual', content: 'Start your morning with warm herbal tea' },
-    { id: 2, title: 'Traditional Inhalation', content: 'Breathe in steam with eucalyptus for clear sinuses' },
-  ];
+  const handleSearch = () => {
+    if (search.trim()) {
+      router.push({ pathname: '/herbs', params: { q: search } });
+    }
+  };
+
+  const handleCategoryPress = (id: string) => {
+    router.push({ pathname: '/herbs', params: { category: id } });
+  };
+
+  const handleHerbPress = (id: string) => {
+    router.push(`/herb/${id}`);
+  };
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#8BC34A', dark: '#345018' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.logo}
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        {/* Kategoriler - Yatay Scroll */}
+        <View style={styles.sectionHeaderRow}>
+          <ThemedText style={styles.sectionTitle}>Kategoriler</ThemedText>
+        </View>
+        <FlatList
+          data={HERB_CATEGORIES}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={item => item.id}
+          contentContainerStyle={styles.categoriesList}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.categoryCard}
+              onPress={() => handleCategoryPress(item.id)}
+              activeOpacity={0.8}
+            >
+              <View style={styles.categoryIcon}>{item.icon}</View>
+              <ThemedText style={styles.categoryName}>{item.name}</ThemedText>
+            </TouchableOpacity>
+          )}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Anadolu Wellness</ThemedText>
-        <ThemedText type="subtitle">Traditional Turkish Herbal Remedies</ThemedText>
-      </ThemedView>
 
-      <ThemedView style={styles.sectionContainer}>
-        <View style={styles.sectionHeader}>
-          <ThemedText type="subtitle">Featured Herbs</ThemedText>
-          <Link href="/herbs" asChild>
-            <TouchableOpacity>
-              <ThemedText style={styles.seeAllText}>See All</ThemedText>
-            </TouchableOpacity>
-          </Link>
+        {/* Popüler Bitkiler */}
+        <View style={styles.sectionHeaderRow}>
+          <ThemedText style={styles.sectionTitle}>Popüler Bitkiler</ThemedText>
         </View>
-        
-        {featuredHerbs.map((herb) => (
-          <Link key={herb.id} href={`/herbs/${herb.id}`} asChild>
-            <TouchableOpacity>
-              <ThemedView style={styles.herbCard}>
-                <View style={styles.herbIconContainer}>
-                  <IconSymbol name="leaf.fill" size={24} color="#8BC34A" />
-                </View>
-                <View style={styles.herbInfo}>
-                  <ThemedText type="defaultSemiBold">{herb.name}</ThemedText>
-                  <ThemedText>{herb.benefit}</ThemedText>
-                </View>
-                <IconSymbol name="chevron.right" size={20} color="#8BC34A" />
-              </ThemedView>
+        <View style={styles.popularHerbsRow}>
+          {POPULAR_HERBS.map((herb) => (
+            <TouchableOpacity
+              key={herb.id}
+              style={styles.popularHerbCard}
+              onPress={() => handleHerbPress(herb.id)}
+              activeOpacity={0.8}
+            >
+              <View style={styles.popularHerbIcon}>{herb.icon}</View>
+              <ThemedText style={styles.popularHerbName}>{herb.name}</ThemedText>
             </TouchableOpacity>
-          </Link>
-        ))}
-      </ThemedView>
-
-      <ThemedView style={styles.sectionContainer}>
-        <View style={styles.sectionHeader}>
-          <ThemedText type="subtitle">Wellness Tips</ThemedText>
+          ))}
         </View>
-        
-        {wellnessTips.map((tip) => (
-          <ThemedView key={tip.id} style={styles.tipCard}>
-            <View style={styles.tipIconContainer}>
-              <IconSymbol name="lightbulb.fill" size={24} color="#FFC107" />
-            </View>
-            <View style={styles.tipInfo}>
-              <ThemedText type="defaultSemiBold">{tip.title}</ThemedText>
-              <ThemedText>{tip.content}</ThemedText>
-            </View>
-          </ThemedView>
-        ))}
-      </ThemedView>
-
-      <ThemedView style={styles.subscriptionCard}>
-        <ThemedText type="subtitle">Unlock Premium Features</ThemedText>
-        <ThemedText>Get access to our full herb database, personalized plans, and exclusive videos.</ThemedText>
-        <TouchableOpacity style={styles.subscribeButton}>
-          <ThemedText style={styles.subscribeButtonText}>Subscribe Now</ThemedText>
-        </TouchableOpacity>
-      </ThemedView>
-    </ParallaxScrollView>
+      </ScrollView>
+      {/* Alt kısımda uygulama adı ve arama çubuğu */}
+      <View style={styles.bottomArea}>
+        <ThemedText style={styles.bigTitle}>Anadolu Wellness</ThemedText>
+        <ThemedText style={styles.subtitle}>Bitkisel sağlık, modern yaşam.</ThemedText>
+        <View style={styles.searchBarWrap}>
+          <View style={styles.searchBar}>
+            <Ionicons name="search" size={20} color={Colors.light.primary} style={styles.searchIcon} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Bitki veya kategori ara..."
+              placeholderTextColor={Colors.light.primary + '99'}
+              value={search}
+              onChangeText={setSearch}
+              onSubmitEditing={handleSearch}
+              returnKeyType="search"
+            />
+          </View>
+        </View>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    alignItems: 'center',
-    gap: 8,
-    marginBottom: 24,
-  },
-  logo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    right: 0,
-    position: 'absolute',
-  },
-  sectionContainer: {
-    gap: 12,
-    marginBottom: 24,
-  },
-  sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  seeAllText: {
-    color: '#8BC34A',
-  },
-  herbCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 8,
-  },
-  herbIconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: 'rgba(139, 195, 74, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
-  },
-  herbInfo: {
+  container: {
     flex: 1,
+    backgroundColor: '#1A6E8E',
   },
-  tipCard: {
+  scrollContent: {
+    paddingTop: 48,
+    paddingBottom: 16,
+    paddingHorizontal: 0,
+  },
+  bigTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+    marginBottom: 2,
+    letterSpacing: 1,
+  },
+  subtitle: {
+    fontSize: 15,
+    color: '#fff',
+    textAlign: 'center',
+    marginBottom: 16,
+    opacity: 0.8,
+  },
+  searchBarWrap: {
+    alignItems: 'center',
+    marginBottom: 0,
+    width: '100%',
+  },
+  searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 8,
-  },
-  tipIconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: 'rgba(255, 193, 7, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
-  },
-  tipInfo: {
-    flex: 1,
-  },
-  subscriptionCard: {
-    padding: 20,
+    backgroundColor: '#fff',
     borderRadius: 16,
-    backgroundColor: 'rgba(139, 195, 74, 0.1)',
-    marginBottom: 24,
-    alignItems: 'center',
-    gap: 12,
+    paddingHorizontal: 16,
+    height: 44,
+    width: '90%',
+    maxWidth: 500,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 2,
   },
-  subscribeButton: {
-    backgroundColor: '#8BC34A',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 24,
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 15,
+    color: Colors.light.primary,
+  },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 8,
     marginTop: 8,
   },
-  subscribeButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
+  sectionTitle: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#fff',
+    letterSpacing: 0.5,
+    textAlign: 'center',
+  },
+  categoriesList: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    paddingLeft: 8,
+    paddingRight: 8,
+  },
+  categoryCard: {
+    backgroundColor: '#fff',
+    borderRadius: 14,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+    minWidth: 90,
+    minHeight: 80,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  categoryIcon: {
+    marginBottom: 6,
+  },
+  categoryName: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: Colors.light.primary,
+    textAlign: 'center',
+  },
+  popularHerbsRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+    marginBottom: 8,
+    flexWrap: 'wrap',
+  },
+  popularHerbCard: {
+    backgroundColor: '#fff',
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    width: 72,
+    marginHorizontal: 6,
+    marginVertical: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  popularHerbIcon: {
+    marginBottom: 4,
+  },
+  popularHerbName: {
+    fontSize: 12,
+    color: Colors.light.primary,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  bottomArea: {
+    width: '100%',
+    paddingBottom: 24,
+    paddingTop: 12,
+    backgroundColor: 'rgba(26,110,142,0.95)',
+    alignItems: 'center',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.10,
+    shadowRadius: 8,
+    elevation: 8,
   },
 });
